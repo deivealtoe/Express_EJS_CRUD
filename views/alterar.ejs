@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <title>EJS - Alteração</title>
+</head>
+<body>
+    <a href="/">Home</a>
+    <a href="/cadastro">Cadastro</a>
+
+    <h1>Alteração</h1>
+
+
+
+    <form>
+        <input type="text" name="form_nome" id="form_nome" value="<%= cadastro.nome %>" required>
+        <input type="email" name="form_email" id="form_email" value="<%= cadastro.email %>" required>
+        <input type="button" onclick="atualizarCadastro()" value="Alterar">
+    </form>
+
+    <script>
+        const emailAnterior = '<%= cadastro.email %>';
+
+        function atualizarCadastro() {
+            const nome = document.getElementById('form_nome').value;
+            const email = document.getElementById('form_email').value;
+
+            fetch('http://127.0.0.1:3000/', {
+                method: "put",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "nome": nome,
+                    "email": email,
+                    "emailAnterior": emailAnterior
+                })
+            });
+
+            window.location.href = '/';
+        }
+    </script>
+</body>
+</html>

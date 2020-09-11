@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <title>EJS - Cadastro</title>
+</head>
+<body>
+    <a href="/">Home</a>
+    <a href="/cadastro">Cadastro</a>
+
+    <h1>Cadastro</h1>
+
+    <form action="/" method="POST">
+        <input type="text" name="form_nome" id="form_nome" placeholder="Nome Completo" required>
+        <input type="email" name="form_email" id="form_email" placeholder="Email" required>
+        <input type="submit" value="Enviar">
+    </form>
+
+    <% if (locals.respostaCadastro) { %>
+        <script>
+            window.alert("<%= respostaCadastro.msg %>");
+        </script>
+    <% } %>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <title><%= title %></title>
+</head>
+<body>
+    <a href="/">Home</a>
+    <a href="/cadastro">Cadastro</a>
+
+    <h1>Bem vindo(a), ao <%= title %>!</h1>
+
+    <% if (pessoas_e_emails_cadastrados.length == 0) { %>
+        <h3>Não há registro</h3>
+    <% } else { %>
+        <table>
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Alterar</th>
+                <th>Remover</th>
+            </tr>
+            <% pessoas_e_emails_cadastrados.forEach(cadastro => { %>
+                <tr>
+                    <td><%= cadastro.nome %></td>
+                    <td><%= cadastro.email %></td>
+                    <td>
+                        <a href="/alterar/<%= cadastro.email %>">
+                            <img class="icone" src="/images/iconfinder_edit.png">
+                        </a>
+                    </td>
+                    <td>
+                        <button onclick="removerCadastro('<%= cadastro.email %>')">
+                            <img class="icone" src="/images/iconfinder_remove.png">
+                        </button>
+                    </td>
+                </tr>
+            <% }); %>
+
+            <script>
+                function removerCadastro(email) {
+                    fetch('http://127.0.0.1:3000/', {
+                        method: "delete",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            "email": email
+                        })
+                    });
+
+                    window.location.replace(window.location.href);
+                }
+            </script>
+        </table>
+    <% } %>
+</body>
+</html>
